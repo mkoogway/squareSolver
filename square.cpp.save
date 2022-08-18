@@ -7,10 +7,10 @@ void calcOUT (double * res, int eps);
 
 int main(void){
 
-    double a = NAN, b = NAN, c = NAN;
-    int eps = 0;
+    double a = NAN, b = NAN, c = NAN; int eps = 0;
 
     calcIN(&a, &b, &c, &eps);
+
     calcOUT(calculate(a,b,c), eps);
 
     return 0;
