@@ -1,24 +1,26 @@
 #include <stdio.h>
 #include <math.h>
 
-double * calculate (double a, double b, double c);
+void calculate (double a, double b, double c, double *res);
 void calcIN (double * a, double * b, double * c, int * eps);
 void calcOUT (double * res, int eps);
+void inputError (void);
 
 int main(void){
 
     double a = NAN, b = NAN, c = NAN;
     int eps = 0;
+    double res[2] = {NAN, NAN};
 
     calcIN(&a, &b, &c, &eps);
-    calcOUT(calculate(a,b,c), eps);
+    calculate(a,b,c, res);
+    calcOUT(res, eps);
 
     return 0;
 }
 
 void calcIN (double * a, double * b, double * c, int * eps){
 
-    char ch;
 
     printf("This program solves square/linear equations:\n"
            "Format of the equation: ax^2 + bx + c = 0\n"
@@ -26,28 +28,22 @@ void calcIN (double * a, double * b, double * c, int * eps){
            "Input: a b c\n");
 
     while (scanf("%lf%lf%lf", a, b, c) != 3){
-        while((ch = getchar()) != '\n')
-            continue;
-        printf("Input should be numerical. For example: 2.5 1.0 0.3\n");
+        inputError();
     }
 
     printf("Input precision in \n"
            "number of digits after dot: ");
 
     while (!scanf("%d", eps)){
-        while((ch = getchar()) != '\n')
-            continue;
-        printf("Input should be decimal. For example: 3\n");
+        inputError();
     }
 }
 
-double * calculate (double a, double b, double c){
-
-    double res[2] = {NAN, NAN};
+void calculate (double a, double b, double c, double *res){
 
     if (a == 0){
         res[0] = -c / b;
-        return res;
+        return;
     }
 
     double D = b*b - 4*a*c;
@@ -59,7 +55,6 @@ double * calculate (double a, double b, double c){
         res[1] = ( -b - sqrt(D) ) / (2*a);
     }
 
-    return res;
 }
 
 void calcOUT (double * res, int eps){
@@ -72,4 +67,11 @@ void calcOUT (double * res, int eps){
         printf("\nDecrease precision, approximate solution: %.*f\n", eps, res[0]);
     else
         printf("\nThe equation has two solutions: %.*f %.*f\n", eps, res[0], eps, res[1]);
+}
+
+void inputError(void){
+    char ch = 0;
+    while((ch = getchar()) != '\n')
+            continue;
+    printf("Input should be decimal. For example: 3\n");
 }

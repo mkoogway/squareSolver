@@ -7,10 +7,10 @@ void calcOUT (double * res, int eps);
 
 int main(void){
 
-    double a = NAN, b = NAN, c = NAN; int eps = 0;
+    double a = NAN, b = NAN, c = NAN;
+    int eps = 0;
 
     calcIN(&a, &b, &c, &eps);
-
     calcOUT(calculate(a,b,c), eps);
 
     return 0;
@@ -18,7 +18,7 @@ int main(void){
 
 void calcIN (double * a, double * b, double * c, int * eps){
 
-    char ch;
+    char ch = 0;
 
     printf("This program solves square/linear equations:\n"
            "Format of the equation: ax^2 + bx + c = 0\n"
